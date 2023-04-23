@@ -17,7 +17,7 @@ import { getData1 } from "../Redux/PostDetails/action";
 import { getData2 } from "../Redux/userDetails/action";
 import { getData3 } from "../Redux/LoogedOutData/action";
 import { setLogin } from "../Redux/login/action";
-
+import { useNavigate } from "react-router-dom";
 function Feed() {
     let dispatch = useDispatch();
     let { followstate, setFollowstate, idC, setidC, trueCount, setTrueCount } =
@@ -30,10 +30,15 @@ function Feed() {
         dispatch(getData3());
         setTrueCount(7);
     }, []);
-
+   const navigate = useNavigate();
     let peopleData = useSelector((state) => state.PeopleReducer.peopleData);
+    console.log("peopleData",peopleData)
     let userPostData = useSelector((state) => state.userPostReducer.userPostData);
+    console.log("userPostData",userPostData)
+
+
     let loggedUser = useSelector((state) => state.loggedReducer.loggedUser);
+    console.log("loggedUser",loggedUser)
 
     let LoggedOutData = useSelector(
         (state) => state.loggedOutDataReducer.loggedOutData
@@ -42,15 +47,6 @@ function Feed() {
     let isAuth = useSelector((state) => {
         return state.loginReducer.isAuth;
     });
-
-
-
-
-
-
-
-
-
 
 
     console.log(LoggedOutData, "loggedoutttttttttttttttttttttttUser");
@@ -91,12 +87,12 @@ function Feed() {
                         justifyContent={"space-between"}
                         marginBottom="2px"
                     >
-                        <button className={f.n1}>
+                        <button className={f.n1} onClick={()=>{navigate('/feed')}}>
                             <Text as="b" fontSize="13px" color="#121212">
                                 Feed
                             </Text>
                         </button>
-                        <button bg={"#f8f7f3"}>
+                        <button bg={"#f8f7f3"} onClick={()=>{navigate('/People')}}>
                             <Text fontSize="13px" color="#888888">
                                 People
                             </Text>
@@ -154,6 +150,7 @@ function Feed() {
                             <HStack marginTop={"-3%"} marginLeft={"2%"} marginBottom={"5%"}>
                                 {peopleData.map((e) => {
                                     let { name, category, img, userFollowState, id } = e;
+                                    console.log('img',img)
                                     return (
                                         <ProfileComp
                                             id1={id}
@@ -169,7 +166,7 @@ function Feed() {
                         </>
                     )}
 
-                    {isAuth == true &&
+                    {isAuth === true &&
                         userPostData.map((e, idx) => {
                             // let {name,username,category,img,posts,userFollowState,id}=e;
                             let name = loggedUser.name;
@@ -214,7 +211,7 @@ function Feed() {
                             );
                         })}
 
-                    {isAuth == true &&
+                    {isAuth === true &&
                         peopleData.map((e) => {
                             let {
                                 name,
@@ -265,7 +262,7 @@ function Feed() {
                             );
                         })}
 
-                    {isAuth == false &&
+                    {isAuth === false &&
                         LoggedOutData.map((e) => {
                             let {
                                 name,

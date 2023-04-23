@@ -59,7 +59,12 @@ const SideBar = () => {
     return state.loginReducer.picture;
   });
 
-  useEffect(() => {});
+  
+  const handleToGOPostPage = ()=>{
+      localStorage.setItem("hashtag",JSON.stringify(""));
+      navigate('/create')
+      
+  }
   return (
     //Main div--
     <Box position="sticky" top="0">
@@ -320,6 +325,7 @@ const SideBar = () => {
               fontSize="19px"
               w="195px"
               h="48px"
+              onClick={handleToGOPostPage}
             >
               + Koo
             </Button>

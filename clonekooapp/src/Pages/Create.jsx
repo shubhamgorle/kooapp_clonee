@@ -79,16 +79,14 @@ function Create() {
     }));
     const filesEncode = filesArray.map((file) =>
       encodeFileAsBase64(file).then((encoded) => {
-        // Store the encoded file data in your JSON
+      
         setmyJSON({
           fileData: encoded,
         });
         const x = {
           fileData: encoded,
         };
-        // axios.post('${process.env.REACT_APP_API_KEY}/images',x)
-        //   .then(response => console.log(response))
-        //     .catch(error => console.log(error));
+  
       })
     );
     console.log(filesWithPreview, "ffilesWithPreview");
@@ -114,9 +112,9 @@ function Create() {
     i === 0 ? fileInputRef.current.click() : fileInputRef1.current.click();
     console.log("Button clickededddd");
   };
-
+  const gethashtag = JSON.parse(localStorage.getItem("hashtag")) || ""; 
   const handlePost = () => {
-    console.log(myJSON, "fileeeeeee22222222");
+    console.log(myJSON.fileData, "jsonFileData");
     let data = {
       description,
       files: [...file],
@@ -211,7 +209,7 @@ function Create() {
           <textarea
             onChange={handleInputChange}
             placeholder="What's on your mind?"
-          ></textarea>
+          >{gethashtag !== "" ?gethashtag : ""}</textarea>
           <div
             style={{
               backgroundColor: "white",

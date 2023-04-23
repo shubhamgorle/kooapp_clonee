@@ -12,27 +12,36 @@ import {
   Button,
   Spacer,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { SideBar } from "../Components/SideBar";
 import axios from "axios";
 import dot from "../Images/dot.svg";
+import { IncreaseCount } from "../Redux/PeopleDetails/action.js";
+import { useDispatch } from "react-redux";
 const People = () => {
   const [data, setData] = useState([]);
-
+  const dispatch = useDispatch()
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_KEY}/peopleData`).then((res) => {
       setData(res.data);
     });
   }, []);
   console.log(data);
+  // const selected = useSelector((state)=>state.PeopleReducer.count)
+  const HandleFollowButton = () => {
+    console.log("btntrigger")
+    dispatch(IncreaseCount())
 
+    //  console.log('selected',selected)
+  }
   return (
     <Flex>
       <SideBar />
       <Box w="620px" bg="rgb(248,247,243)" p="20px 24px 0">
         {/* Navbar div */}
         <Flex justifyContent="space-evenly" h="43px" color="rgb(136,136,136)">
-          <Text>Feed</Text>
-          <Text>People</Text>
+          <Link to='/feed'><Text>Feed</Text></Link>
+          <Link to='/People'><Text>People</Text></Link>
           <Text>Poll</Text>
           <Text>Videos</Text>
           <Text>New</Text>
@@ -110,6 +119,7 @@ const People = () => {
                         fontSize="13px"
                         bg="#4b4b4b"
                         color="white"
+                        onClick={HandleFollowButton}
                       >
                         + Follow
                       </Button>

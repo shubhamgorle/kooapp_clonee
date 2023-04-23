@@ -14,6 +14,8 @@ import { putData1} from "../Redux/PostDetails/action"
 import { useSelector,useDispatch} from 'react-redux'
 
 function FeedPost({id1,postsID,name,img,username,category,days,content,hastags,likes,comments,reKoo,userFollowState,userLike,Image1,user}) {
+  console.log("Image11111111111111111111111111111111",Image1)
+
     let myHashTags;
     if (hastags!=""){
       myHashTags = hastags.join(" ");
@@ -28,9 +30,12 @@ function FeedPost({id1,postsID,name,img,username,category,days,content,hastags,l
       navigate(`/profile/${username}`);
     }
     let IncreaseCount =()=>{
-      if (user==false){
-        if (userLike==false){
+          console.log('likesssssssssssssssssssss',likes)
+    
+      if (user===false){
+        if (userLike===false){
           likes=likes+1;
+          // console.log('likes',likes)
           userLike=true;
           // console.log(likes,"L");
           let q=-1;
@@ -105,10 +110,10 @@ function FeedPost({id1,postsID,name,img,username,category,days,content,hastags,l
       else{
         console.log(userPostData,"userPostData at feed post for user if condtion");
         console.log("userLike",userLike)
-        if (userLike==false){
+        if (userLike===false){
           likes=likes+1;
           userLike=true;
-          let q=-1;
+          let q =-1;
           let x=[
             ...userPostData.map((e,idx) => {
               if (e.id === id1) {
@@ -162,11 +167,19 @@ function FeedPost({id1,postsID,name,img,username,category,days,content,hastags,l
       },
     };
 
+   
+     
+    const handleOurComment = (event)=>{
+      if (event.key === 'Enter') {   
+        console.log(comments)
+        comments = comments + 1;
+        console.log(comments)
+      }
+    }
     useEffect(()=>{
-        // console.log("render")
-    },[likes])
-
-  return userFollowState == false ? (
+      // console.log("render")
+  },[likes])
+  return userFollowState === false ? (
         <Card p={'2%'} m={'2%'} textAlign={'left'} >
            <Box >
             <HStack justifyContent={'space-between'}>
@@ -177,7 +190,7 @@ function FeedPost({id1,postsID,name,img,username,category,days,content,hastags,l
                     </VStack>
             </HStack>
             <HStack><Text color={'#888888'} fontSize='14px' >{days}</Text>
-                    {userFollowState == true ? <MdPersonAddAlt color={'#888888'} /> : <></>}
+                    {userFollowState === true ? <MdPersonAddAlt color={'#888888'} /> : <></>}
                     <MdMoreVert color={'#888888'} />
             </HStack>
             </HStack>
@@ -213,11 +226,11 @@ function FeedPost({id1,postsID,name,img,username,category,days,content,hastags,l
                   }
                 />
                 <Spacer/><Spacer/><Spacer/>
-                <Input type="text" placeholder="Write your comment..." color={'#CCCCCC'} fontSize='14px' />
+                <Input type="text" placeholder="Write your comment..." color={'#CCCCCC'} fontSize='14px' onKeyDown={handleOurComment}/>
               </InputGroup>
             </Stack>
             <Box  marginTop={'2%'} marginBottom={'2%'} color={'#666666'} fontSize='14px'><HStack justifyContent={'space-between'}>
-                <Box style={{ cursor: 'pointer' }}><HStack><BiLike size={24} onClick={IncreaseCount} fill={userLike===true? 'red': ''} /><Text >{likes}</Text></HStack></Box>
+                <Box style={{ cursor: 'pointer' }}><HStack><BiLike size={24} onClick={IncreaseCount} fill={userLike===true? 'darkgreen': ''} /><Text >{likes}</Text></HStack></Box>
                 <Box style={{ cursor: 'pointer' }}><HStack><FaRegCommentAlt size={22} /><Text>{comments}</Text></HStack></Box>
                 <Box style={{ cursor: 'pointer' }}><HStack><RxLoop size={24}/><Text>{reKoo}</Text></HStack></Box>
                 <Box style={{ cursor: 'pointer' }}><FaWhatsapp size={24}/></Box>
