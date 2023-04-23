@@ -4,7 +4,8 @@ import { FeedContext } from "../../Context/FeedContext";
 
 const initialState = {
     peopleData:[],
-    feedData:[]
+    feedData:[],
+    count:0
 }
 
 
@@ -21,6 +22,10 @@ const reducer = (state = initialState , {type , payload}) =>{
             case GET_FEED_DATA:
                 return{
                     ...state , feedData:payload
+                }
+                case 'incCount':
+                return{
+                    ...state , count:state.count+1
                 }
         default:
             return state;

@@ -1,8 +1,13 @@
 import React from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { Avatar, AvatarGroup, Box, Flex, Heading } from "@chakra-ui/react";
-
+import { json, useNavigate } from "react-router-dom";
 const RsidebarCard = ({ ele }) => {
+  const navigate = useNavigate();
+  const HandleNavigate = ()=>{
+    navigate('/create')
+    localStorage.setItem('hashtag',JSON.stringify(ele.hastag))
+  }
   return (
     <>
       <Box className="card">
@@ -24,20 +29,20 @@ const RsidebarCard = ({ ele }) => {
                 <AvatarGroup size="sm" max={3} p="10px">
                   <Avatar
                     name="Ryan Florence"
-                    src="https://bit.ly/ryan-florence"
+                    src={ele.img1}
                   />
                   <Avatar
                     name="Segun Adebayo"
-                    src="https://bit.ly/sage-adebayo"
+                    src={ele.img2}
                   />
-                  <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
+                  <Avatar name="Kent Dodds" src={ele.img4} />
                   <Avatar
                     name="Prosper Otemuyiwa"
-                    src="https://bit.ly/prosper-baba"
+                    src={ele.img3}
                   />
                   <Avatar
                     name="Christian Nwamba"
-                    src="https://bit.ly/code-beast"
+                    src={ele.img4}
                   />
                 </AvatarGroup>
               </Box>
@@ -46,7 +51,7 @@ const RsidebarCard = ({ ele }) => {
               </Box>
             </Flex>
           </Box>
-          <Box>
+          <Box onClick={HandleNavigate}>
             <AiOutlinePlusCircle size={"30px"} />
           </Box>
         </Flex>

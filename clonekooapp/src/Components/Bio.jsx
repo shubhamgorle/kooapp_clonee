@@ -42,6 +42,8 @@ const Bio = () => {
     return state.loginReducer.picture;
   });
 
+  const selected = useSelector((state)=>state.PeopleReducer.count)
+
   let Image1 = data.picture || loggedUser.picture || img_DP;
   console.log("Profile Image => ", Image1);
   let navigate = useNavigate();
@@ -521,7 +523,7 @@ const Bio = () => {
                 fontSize="14px"
                 fontWeight="500"
               >
-                2{" "}
+                {selected}
                 <Text color="#888" fontSize="14px" ml="8px">
                   Following
                 </Text>

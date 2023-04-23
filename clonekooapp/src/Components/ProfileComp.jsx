@@ -50,7 +50,7 @@ function ProfileComp({ id1, name, category, img, userFollowState }) {
           // }
         }),
       ];
-      setTrueCount(trueCount - 1);
+      setTrueCount(trueCount - 1); 
 
       console.log(x, "xxxxxx");
       // dispatch(redData(x));
