@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { CheckIcon } from '@chakra-ui/icons'
 import {
   Box,
   Flex,
@@ -20,6 +21,9 @@ import { IncreaseCount } from "../Redux/PeopleDetails/action.js";
 import { useDispatch } from "react-redux";
 const People = () => {
   const [data, setData] = useState([]);
+  const [clickdata, setclickdata] = useState(0);
+  const [followclick, setfollowclick] = useState(false);
+  const [unfollowclick, setunfollowclick] = useState(true);
   const dispatch = useDispatch()
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_KEY}/peopleData`).then((res) => {
@@ -28,12 +32,24 @@ const People = () => {
   }, []);
   console.log(data);
   // const selected = useSelector((state)=>state.PeopleReducer.count)
-  const HandleFollowButton = () => {
-    console.log("btntrigger")
-    dispatch(IncreaseCount())
 
-    //  console.log('selected',selected)
+
+  const HandleFollowButton = (id) => {
+    dispatch(IncreaseCount())
+    setclickdata(id)
+    if(followclick === false){
+      setfollowclick(true)
+      setunfollowclick(false)
+    }
+    else{
+      setfollowclick(false)
+      setunfollowclick(true)
+    }
+   
+     console.log('followclick',followclick)
+     console.log('unfollowclick',unfollowclick)
   }
+
   return (
     <Flex>
       <SideBar />
@@ -119,9 +135,9 @@ const People = () => {
                         fontSize="13px"
                         bg="#4b4b4b"
                         color="white"
-                        onClick={HandleFollowButton}
+                        onClick={()=>{HandleFollowButton(id+1)}}
                       >
-                        + Follow
+                    {followclick && clickdata === id+1 ?<CheckIcon/> :"+ Follow"}
                       </Button>
                     </Box>
                   </Box>
